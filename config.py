@@ -9,7 +9,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('config', help='configuration file')
 args = parser.parse_args()
 
-# Load the configuration file
+# Load the configuration file/s
 system = System()
 system.read_config(args.config)
 
