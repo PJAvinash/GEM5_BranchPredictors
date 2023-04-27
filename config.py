@@ -53,4 +53,3 @@ print("Beginning simulation...")
 exit_event = m5.simulate()
 
 print('Exiting @ tick', m5.curTick(), 'because', exit_event.getCause())
-
