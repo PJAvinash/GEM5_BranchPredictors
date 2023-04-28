@@ -7,7 +7,6 @@ m5.util.addToPath("../../")
 class L1Cache(Cache):
     """Simple L1 Cache with default values"""
     assoc = 2
-    tag_latency = 2
     data_latency = 2
     response_latency = 2
     mshrs = 4
