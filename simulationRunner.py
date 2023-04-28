@@ -17,7 +17,7 @@ branchpredictor = 0 #0,1,2
 
 for bm in benchmarks:
     benchmarkEXE = currentdir + "/Project1_SPEC/" + bm + "/src/benchmark"
-    simulationConfig = args.configfile
+    simulationConfig = "config.py"
     benchmarkARGS = benchmarks[bm]
     outputstats = bm +"_"+str(branchpredictor)+"_"+str(lsize)+"_"+str(gsize)+"_"+str(csize)
     statsdir = currentdir + "/simstats/"+outputstats
