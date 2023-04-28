@@ -247,14 +247,14 @@ else:
 
 # added by JXP220032
 # Set up the branch predictor
-if int(args.branchpredtype) == 0:
+if int(args.bpredictortype) == 0:
     system.cpu.branchPred = BiModeBP(
         globalPredictorSize = int(args.gsize),
         choicePredictorSize = int(args.csize),
     )
     
 
-if int(args.branchpredtype) == 1:
+if int(args.bpredictortype) == 1:
     system.cpu.branchPred = TournamentBP(
         globalPredictorSize = int(args.gsiz),
         choicePredictorSize = int(args.csize),
@@ -264,7 +264,7 @@ if int(args.branchpredtype) == 1:
     )
     
 
-if int(args.branchpredtype) == 2:
+if int(args.bpredictortype) == 2:
     system.cpu.branchPred = LocalBP(
         localPredictorSize = int(args.lsize),
     )
