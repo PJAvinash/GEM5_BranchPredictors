@@ -17,12 +17,12 @@ branchpredictor = 0 #0,1,2
 
 for bm in benchmarks:
     benchmarkEXE = currentdir + "/Project1_SPEC/" + bm + "/src/benchmark"
-    simulationConfig = "config.py"
+    simulationConfig = args.configfile
     benchmarkARGS = benchmarks[bm]
     outputstats = bm +"_"+str(branchpredictor)+"_"+str(lsize)+"_"+str(gsize)+"_"+str(csize)
     statsdir = currentdir + "/simstats/"+outputstats
     #simulationCMD = 'time ' + gem5build + ' -d ' +statsdir+' '+simulationConfig+' '+ str(branchpredictor) + ' ' +str(lsize)+' '+str(gsize)+' '+str(csize)+ ' -c '+benchmarkEXE+' -o "'+benchmarkARGS+'" -I '+args.instructions+ ' '+cpuparams
-    simulationCMD = 'time ' + gem5build + ' -d ' +statsdir+' '+simulationConfig+' '+ str(branchpredictor) + ' ' +str(lsize)+' '+str(gsize)+' '+str(csize)+ ' '+benchmarkEXE+':'+benchmarkARGS
+    simulationCMD = 'time ' + gem5build + ' -d ' +statsdir+' '+simulationConfig+' --bpredictortype='+ str(branchpredictor) + ' --lsize=' +str(lsize)+' --gsize='+str(gsize)+' --csize='+str(csize)+ ' -c '+benchmarkEXE+' -o "'+benchmarkARGS+'" -I '+args.instructions+ ' '+cpuparams
     #subprocess.Popen(simulationCMD, shell=True)
     print(simulationCMD)
 
