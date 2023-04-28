@@ -21,7 +21,7 @@ for bm in benchmarks:
     benchmarkARGS = benchmarks[bm]
     outputstats = simulationConfig +"_"+bm
     statsdir = currentdir + "/simstats/"+outputstats
-    simulationCMD = "time " + gem5build + " -d " +statsdir+" "+simulationConfig+" "+ branchpredictor + " "+lsize+" "+gsize+" "+csize+ "-c "+benchmarkEXE+" -o "+benchmarkARGS+" -I "+args.instructions+ " "+cpuparams
+    simulationCMD = "time " + gem5build + " -d " +statsdir+" "+simulationConfig+" "+ str(branchpredictor) + " "+str(lsize)+" "+str(gsize)+" "+str(csize)+ "-c "+benchmarkEXE+" -o "+benchmarkARGS+" -I "+args.instructions+ " "+cpuparams
     subprocess.Popen(simulationCMD, shell=True)
 
 
