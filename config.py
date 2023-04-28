@@ -15,7 +15,7 @@ system.clk_domain.voltage_domain = VoltageDomain()
 system.mem_mode = "timing"  # Use timing accesses
 system.mem_ranges = [AddrRange("512MB")]  # Create an address range
 # Create a simple CPU
-system.cpu = X86TimingSimpleCPU()
+system.cpu = BaseSimpleCPU()
 # Create an L1 instruction and data cache
 system.cpu.icache = L1ICache()
 system.cpu.dcache = L1DCache()
