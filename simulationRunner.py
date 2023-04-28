@@ -12,13 +12,13 @@ gem5build = currentdir + "/gem5/build/X86/gem5.opt"
 cpuparams = "--cpu-type=timing --caches --l2cache --l1d_size=128kB --l1i_size=128kB --l2_size=1MB --l1d_assoc=2 --l1i_assoc=2 --l2_assoc=4 --cacheline_size=64"
 
 for bm in benchmarks:
-    benchmarkEXE = currentdir + f"/Project1_SPEC/{bm}/src/benchmark"
+    benchmarkEXE = currentdir + "/Project1_SPEC/" + bm + "/src/benchmark"
     simulationConfig = args.configfile
     benchmarkARGS = benchmarks[bm]
-    outputstats = f"{simulationConfig}_{bm}"
-    statsdir = currentdir + f"/simstats/{outputstats}"
-    simulationCMD = f"time {gem5build} -d {statsdir} {simulationConfig} -c {benchmarkEXE} -o '{benchmarkARGS}' -I {args.instructions} {cpuparams}"
-    print(simulationCMD)
+    outputstats = simulationConfig +"_"+bm
+    statsdir = currentdir + "/simstats/"+outputstats
+    simulationCMD = f"time" + gem5build + "-d" +statsdir+" "+simulationConfig+" -c "+benchmarkEXE+" -o "+benchmarkARGS+" -I "+args.instructions+ " "+cpuparams
+    subprocess.Popen(simulationCMD, shell=True)
 
 
 
