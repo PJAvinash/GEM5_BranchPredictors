@@ -1,5 +1,5 @@
 #testing
-
+import sys
 import m5
 from m5.objects import *
 from m5.util import *
@@ -39,9 +39,15 @@ system.membus.slave = system.mem_ctrl.port
 # Set up the branch predictor
 system.cpu.branchPred = BimodalBP(size=2048)
 
+# Get the command from the command line arguments
+if len(sys.argv) > 1:
+    command = sys.argv[1]
+else:
+    command = 'hello'
+
 # Create the process
 process = Process()
-process.cmd = ['hello']
+process.cmd = [command]
 system.cpu.workload = process
 system.cpu.createThreads()
 
