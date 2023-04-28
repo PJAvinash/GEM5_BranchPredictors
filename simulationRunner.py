@@ -10,6 +10,10 @@ benchmarks = {'401.bzip2':'../data/input.program','429.mcf':'../data/input.progr
 currentdir = "/home/010/j/jx/jxp220032/CS6304P2"
 gem5build = currentdir + "/gem5/build/X86/gem5.opt"
 cpuparams = "--cpu-type=timing --caches --l2cache --l1d_size=128kB --l1i_size=128kB --l2_size=1MB --l1d_assoc=2 --l1i_assoc=2 --l2_assoc=4 --cacheline_size=64"
+csize = 2048
+lsize = 1048
+gsize = 4096
+branchpredictor = 0 #0,1,2
 
 for bm in benchmarks:
     benchmarkEXE = currentdir + "/Project1_SPEC/" + bm + "/src/benchmark"
@@ -17,10 +21,8 @@ for bm in benchmarks:
     benchmarkARGS = benchmarks[bm]
     outputstats = simulationConfig +"_"+bm
     statsdir = currentdir + "/simstats/"+outputstats
-    simulationCMD = "time " + gem5build + " -d " +statsdir+" "+simulationConfig+" -c "+benchmarkEXE+" -o "+benchmarkARGS+" -I "+args.instructions+ " "+cpuparams
+    simulationCMD = "time " + gem5build + " -d " +statsdir+" "+simulationConfig+" "+ branchpredictor + " "+lsize+" "+gsize+" "+csize+ "-c "+benchmarkEXE+" -o "+benchmarkARGS+" -I "+args.instructions+ " "+cpuparams
     subprocess.Popen(simulationCMD, shell=True)
-
-
 
 
 

@@ -4,50 +4,69 @@ import m5
 from m5.objects import *
 from m5.util import *
 
-# Parse options
 parser = argparse.ArgumentParser()
-parser.add_argument('config', help='configuration file')
+parser.add_argument("branchpredtype", help="Branch predictor type")
+parser.add_argument("lsize", help="local Predictor Size")
+parser.add_argument("gsize", help="global Predictor Size")
+parser.add_argument("csize", help="choice Predictor Size")
+parser.add_argument("exe", help="executable binary")
 args = parser.parse_args()
 
-# Load the configuration file/s
+
 system = System()
-system.read_config(args.config)
 
-# Create the memory system
+system.clk_domain = SrcClockDomain()
+system.clk_domain.clock = '1GHz'
+system.clk_domain.voltage_domain = VoltageDomain()
+
 system.mem_mode = 'timing'
-system.mem_ranges = [AddrRange('0x00000000', size=system.mem_size)]
+system.mem_ranges = [AddrRange('0x00000000', size='512MB')]
 
-# Create the CPU
 system.cpu = TimingSimpleCPU()
+system.cpu.icache = L1Cache(size='16kB')
+system.cpu.dcache = L1Cache(size='16kB')
 
-# Create the cache hierarchy
-system.cpu.icache = L1Cache()
-system.cpu.dcache = L1Cache()
+system.membus = SystemXBar()
 
-# Connect the CPU to the memory system
 system.cpu.icache.connectCPU(system.cpu)
 system.cpu.dcache.connectCPU(system.cpu)
+
 system.cpu.icache.connectBus(system.membus)
 system.cpu.dcache.connectBus(system.membus)
 
-# Create the memory controller and connect it to the memory bus
 system.mem_ctrl = DDR3_1600_8x8()
 system.mem_ctrl.range = system.mem_ranges[0]
 system.mem_ctrl.port = system.membus.master
 system.membus.slave = system.mem_ctrl.port
 
-# Set up the branch predictor
 system.cpu.branchPred = BimodalBP(size=2048)
 
-# Get the command from the command line arguments
-if len(sys.argv) > 1:
-    command = sys.argv[1]
-else:
-    command = 'hello'
 
+# Set up the branch predictor
+if args.branchpredtype == 0:
+    system.cpu.branchPred = BiModeBP(
+        globalPredictorSize = args.gsize,
+        choicePredictorSize = args.csize,
+    )
+    
+
+if args.branchpredtype == 1:
+    system.cpu.branchPred = TournamentBP(
+        globalPredictorSize = args.gsize,
+        choicePredictorSize = args.csize,
+        localPredictorSize = args.lsize,
+        predictor = LocalBP(),
+        predictor2 = BimodalBP()
+    )
+    
+
+if args.branchpredtype == 2:
+    system.cpu.branchPred = LocalBP(
+        localPredictorSize = args.lsize,
+    )
 # Create the process
 process = Process()
-process.cmd = [command]
+process.cmd = [args.exe]
 system.cpu.workload = process
 system.cpu.createThreads()
 
