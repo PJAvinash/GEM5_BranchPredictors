@@ -249,16 +249,16 @@ else:
 # Set up the branch predictor
 if int(options.bpredictortype) == 0:
     system.cpu.branchPred = BiModeBP(
-        globalPredictorSize = int(args.gsize),
-        choicePredictorSize = int(args.csize),
+        globalPredictorSize = int(options.gsize),
+        choicePredictorSize = int(options.csize),
     )
     
 
 if int(options.bpredictortype) == 1:
     system.cpu.branchPred = TournamentBP(
-        globalPredictorSize = int(args.gsiz),
-        choicePredictorSize = int(args.csize),
-        localPredictorSize = int(args.lsize),
+        globalPredictorSize = int(options.gsize),
+        choicePredictorSize = int(options.csize),
+        localPredictorSize = int(options.lsize),
         predictor = LocalBP(),
         predictor2 = BimodalBP()
     )
