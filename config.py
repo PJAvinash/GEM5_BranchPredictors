@@ -1,4 +1,5 @@
 #testing
+import argparse
 import sys
 import m5
 from m5.objects import *
