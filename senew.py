@@ -266,7 +266,7 @@ if int(options.bpredictortype) == 1:
 
 if int(options.bpredictortype) == 2:
     system.cpu.branchPred = LocalBP(
-        localPredictorSize = int(args.lsize),
+        localPredictorSize = int(options.lsize),
     )
 
 root = Root(full_system = False, system = system)
