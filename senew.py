@@ -260,7 +260,7 @@ if int(options.bpredictortype) == 2:
         choicePredictorSize = int(options.csize),
         localPredictorSize = int(options.lsize),
         predictor = LocalBP(),
-        predictor2 = BimodalBP()
+        predictor2 = BiModeBP()
     )
     
 
