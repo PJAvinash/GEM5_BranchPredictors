@@ -19,10 +19,11 @@ for bm in benchmarks:
     benchmarkEXE = currentdir + "/Project1_SPEC/" + bm + "/src/benchmark"
     simulationConfig = args.configfile
     benchmarkARGS = benchmarks[bm]
-    outputstats = simulationConfig +"_"+bm
+    outputstats = bm +"_"+str(branchpredictor)+"_"+str(lsize)+"_"+str(gsize)+"_"+str(csize)
     statsdir = currentdir + "/simstats/"+outputstats
-    simulationCMD = "time " + gem5build + " -d " +statsdir+" "+simulationConfig+" "+ str(branchpredictor) + " "+str(lsize)+" "+str(gsize)+" "+str(csize)+ "-c "+benchmarkEXE+" -o "+benchmarkARGS+" -I "+args.instructions+ " "+cpuparams
-    subprocess.Popen(simulationCMD, shell=True)
+    simulationCMD = "time " + gem5build + " -d " +statsdir+" "+simulationConfig+" "+ str(branchpredictor) + " "+str(lsize)+" "+str(gsize)+" "+str(csize)+ " -c "+benchmarkEXE+" -o "+benchmarkARGS+" -I "+args.instructions+ " "+cpuparams
+    #subprocess.Popen(simulationCMD, shell=True)
+    print(simulationCMD)
 
 
 
