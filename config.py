@@ -43,26 +43,26 @@ system.cpu.branchPred = BimodalBP(size=2048)
 
 
 # Set up the branch predictor
-if args.branchpredtype == 0:
+if int(args.branchpredtype) == 0:
     system.cpu.branchPred = BiModeBP(
-        globalPredictorSize = args.gsize,
-        choicePredictorSize = args.csize,
+        globalPredictorSize = int(args.gsize),
+        choicePredictorSize = int(args.csize),
     )
     
 
-if args.branchpredtype == 1:
+if int(args.branchpredtype) == 1:
     system.cpu.branchPred = TournamentBP(
-        globalPredictorSize = args.gsize,
-        choicePredictorSize = args.csize,
-        localPredictorSize = args.lsize,
+        globalPredictorSize = int(args.gsiz),
+        choicePredictorSize = int(args.csize),
+        localPredictorSize = int(args.lsize),
         predictor = LocalBP(),
         predictor2 = BimodalBP()
     )
     
 
-if args.branchpredtype == 2:
+if int(args.branchpredtype) == 2:
     system.cpu.branchPred = LocalBP(
-        localPredictorSize = args.lsize,
+        localPredictorSize = int(args.lsize),
     )
 # Create the process
 process = Process()
