@@ -4,6 +4,7 @@ import sys
 import m5
 from m5.objects import *
 from m5.util import *
+from caches import *
 
 
 system = System()
