@@ -82,10 +82,10 @@ parser = optparse.OptionParser()
 Options.addCommonOptions(parser)
 Options.addSEOptions(parser)
 #added by jxp220032
-parser.add_argument("--bpredictortype",type=int,default=0,help="Branh predictor type (0,1,2)")
-parser.add_argument("--lsize", type = int, help="local Predictor Size")
-parser.add_argument("--gsize", type = int, help="global Predictor Size")
-parser.add_argument("--csize", type = int, help="choice Predictor Size")
+parser.add_option("--bpredictortype",type=int,default=0,help="Branh predictor type (0,1,2)")
+parser.add_option("--lsize", type = int, help="local Predictor Size")
+parser.add_option("--gsize", type = int, help="global Predictor Size")
+parser.add_option("--csize", type = int, help="choice Predictor Size")
 
 if '--ruby' in sys.argv:
     Ruby.define_options(parser)
