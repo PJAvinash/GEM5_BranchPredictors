@@ -42,7 +42,7 @@ system.membus.slave = system.mem_ctrl.port
 
 system.cpu.branchPred = BimodalBP(size=2048)
 
-
+system.max_insts_any_thread = 100000
 # Set up the branch predictor
 if int(args.branchpredtype) == 0:
     system.cpu.branchPred = BiModeBP(
@@ -67,7 +67,7 @@ if int(args.branchpredtype) == 2:
     )
 # Create the process
 process = Process()
-process.cmd = [args.exe]
+process.cmd = args.exe.split(":")
 system.cpu.workload = process
 system.cpu.createThreads()
 
