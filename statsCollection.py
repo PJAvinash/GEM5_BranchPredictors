@@ -1,20 +1,22 @@
+import re
 def read_file_to_dict(filename):
-    result = {}
-    with open(filename, "r") as f:
-        for line in f:
-            if not line.startswith('#'):
-                parts = line.split()
-                if len(parts) == 2:
-                    key, value = parts
-                    result[key] = value
-    return result
+    with open(filename, 'r') as file:
+        regex = r'^(\w+)\s+([\-\d\.]+)'
+        data = {}
+        for line in file:
+            match = re.match(regex, line)
+            if match:
+                key = match.group(1)
+                value = float(match.group(2))
+                data[key] = value
+    return data
 
 def getStatsFileName(bm,branchpredictorID,lsize,gsize,csize):
     return bm +"_"+str(branchpredictorID)+"_"+str(lsize)+"_"+str(gsize)+"_"+str(csize)
 
 def isExecuted(statsdir):
     statsDict = read_file_to_dict(statsdir+"/stats.txt")
-    return statsDict["sim_insts"] == '500000000'
+    return statsDict["sim_insts"] <= 500000000
 
 def checkConfig(benchmarksList,bpredid,ls,gs,cs):
     currentdir = "/home/010/j/jx/jxp220032/CS6304P2"
