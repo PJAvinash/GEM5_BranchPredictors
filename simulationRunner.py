@@ -1,5 +1,6 @@
 import argparse
 import subprocess
+import concurrent.futures
 
 parser = argparse.ArgumentParser()
 parser.add_argument("configfile", help="Path to configuration file")
@@ -15,16 +16,22 @@ csize = 2048
 lsize = 1048
 gsize = 4096
 branchpredictor = 0 #0,1,2
+
 def simulateForParams(branchpredictor,lsize,gsize,csize):
-    for bm in benchmarks:
-        benchmarkEXE = currentdir + "/Project1_SPEC/" + bm + "/src/benchmark"
-        simulationConfig = args.configfile
-        benchmarkARGS = benchmarks[bm]
-        outputstats = bm +"_"+str(branchpredictor)+"_"+str(lsize)+"_"+str(gsize)+"_"+str(csize)
-        statsdir = currentdir + "/simstats/"+outputstats
-        simulationCMD = 'time ' + gem5build + ' -d ' +statsdir+' '+simulationConfig+' --bpredictortype='+ str(branchpredictor) + ' --lsize=' +str(lsize)+' --gsize='+str(gsize)+' --csize='+str(csize)+ ' -c '+benchmarkEXE+' -o "'+benchmarkARGS+'" -I '+args.instructions+ ' '+cpuparams
-        subprocess.Popen(simulationCMD, shell=True)
-        print(simulationCMD)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+        futures = []
+        for bm in benchmarks:
+            benchmarkEXE = currentdir + "/Project1_SPEC/" + bm + "/src/benchmark"
+            simulationConfig = args.configfile
+            benchmarkARGS = benchmarks[bm]
+            outputstats = bm +"_"+str(branchpredictor)+"_"+str(lsize)+"_"+str(gsize)+"_"+str(csize)
+            statsdir = currentdir + "/simstats/"+outputstats
+            simulationCMD = 'time ' + gem5build + ' -d ' +statsdir+' '+simulationConfig+' --bpredictortype='+ str(branchpredictor) + ' --lsize=' +str(lsize)+' --gsize='+str(gsize)+' --csize='+str(csize)+ ' -c '+benchmarkEXE+' -o "'+benchmarkARGS+'" -I '+args.instructions+ ' '+cpuparams
+            future = executor.submit(subprocess.call, simulationCMD, shell=True)
+            futures.append(future)
+        for future in futures:
+            future.result()
+
 
 #local predictor
 for ls in [1024,2048,4096]:
