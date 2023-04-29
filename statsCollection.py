@@ -27,7 +27,7 @@ def checkConfig(benchmarksList,bpredid,ls,gs,cs):
     for bm in benchmarksList:
         statsdir = currentdir + "/simstats/"+getStatsFileName(bm,bpredid,ls,gs,cs)
         if not isExecuted(statsdir):
-            print(getStatsFileName(bm,ls,gs,cs) + '\n')
+            print(getStatsFileName(bm,bpredid,ls,gs,cs) + '\n')
 
 def checkAllStats():
     benchmarksList  = ['456.hmmer','458.sjeng','470.lbm']
