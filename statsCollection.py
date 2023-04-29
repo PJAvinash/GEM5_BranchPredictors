@@ -13,7 +13,7 @@ def getStatsFileName(bm,branchpredictorID,lsize,gsize,csize):
     return bm +"_"+str(branchpredictorID)+"_"+str(lsize)+"_"+str(gsize)+"_"+str(csize)
 
 def isExecuted(statsdir):
-    statsDict = read_file_to_dict(statsdir)
+    statsDict = read_file_to_dict(statsdir+"/stats.txt")
     return statsDict["sim_insts"] == '500000000'
 
 def checkConfig(benchmarksList,bpredid,ls,gs,cs):
