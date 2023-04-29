@@ -21,12 +21,14 @@ def isExecuted(statsdir):
     return False
 
     
+remainingSims = 0
 
 def checkConfig(benchmarksList,bpredid,ls,gs,cs):
     currentdir = "/home/010/j/jx/jxp220032/CS6304P2"
     for bm in benchmarksList:
         statsdir = currentdir + "/simstats/"+getStatsFileName(bm,bpredid,ls,gs,cs)
         if not isExecuted(statsdir):
+            remainingSims += 1
             print(getStatsFileName(bm,bpredid,ls,gs,cs) + '\n')
 
 def checkAllStats():
@@ -43,6 +45,6 @@ def checkAllStats():
         for cs in [1024,2048,4096]:
             for ls in [1024,2048,4096]:
                 checkConfig(benchmarksList,2,ls,gs,cs)
-    print("checking all stats completed\n")
+    print("checking all stats completed, remaining :" + str(remainingSims) + "\n")
     
 checkAllStats()
