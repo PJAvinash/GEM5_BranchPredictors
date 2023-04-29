@@ -1,6 +1,7 @@
 import argparse
 import subprocess
 import concurrent.futures
+from statsCollection import isExecuted
 
 parser = argparse.ArgumentParser()
 parser.add_argument("configfile", help="Path to configuration file")
@@ -24,8 +25,9 @@ def simulateForParams(branchpredictor,lsize,gsize,csize):
             outputstats = bm +"_"+str(branchpredictor)+"_"+str(lsize)+"_"+str(gsize)+"_"+str(csize)
             statsdir = currentdir + "/simstats/"+outputstats
             simulationCMD = 'time ' + gem5build + ' -d ' +statsdir+' '+simulationConfig+' --bpredictortype='+ str(branchpredictor) + ' --lsize=' +str(lsize)+' --gsize='+str(gsize)+' --csize='+str(csize)+ ' -c '+benchmarkEXE+' -o "'+benchmarkARGS+'" -I '+args.instructions+ ' '+cpuparams
-            future = executor.submit(subprocess.call, simulationCMD, shell=True)
-            futures.append(future)
+            if not isExecuted(statsdir):
+                future = executor.submit(subprocess.call, simulationCMD, shell=True)
+                futures.append(future)
         for future in futures:
             future.result()
 
