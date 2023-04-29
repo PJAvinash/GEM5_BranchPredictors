@@ -29,15 +29,15 @@ def checkAllStats():
     benchmarksList  = ['456.hmmer','458.sjeng','470.lbm']
     #local predictor
     for ls in [1024,2048,4096]:
-        checkConfig(benchmarksList,1,ls,1024,1024)
+        checkConfig(benchmarksList,0,ls,1024,1024)
     #biModal
     for gs in [1024,2048,4096]:
         for cs in [1024,2048,4096]:
-            checkConfig(benchmarksList,2,1024,gs,cs)
+            checkConfig(benchmarksList,0,1024,gs,cs)
     #tournament
     for gs in [1024,2048,4096]:
         for cs in [1024,2048,4096]:
             for ls in [1024,2048,4096]:
-                checkConfig(benchmarksList,3,ls,gs,cs)
+                checkConfig(benchmarksList,0,ls,gs,cs)
     
 checkAllStats()
