@@ -16,7 +16,7 @@ def getStatsFileName(bm,branchpredictorID,lsize,gsize,csize):
 
 def isExecuted(statsdir):
     statsDict = read_file_to_dict(statsdir+"/stats.txt")
-    return statsDict["sim_insts"] <= 500000000
+    return statsDict["sim_insts"] >= 500000000
 
 def checkConfig(benchmarksList,bpredid,ls,gs,cs):
     currentdir = "/home/010/j/jx/jxp220032/CS6304P2"
