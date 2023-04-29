@@ -24,6 +24,7 @@ def isExecuted(statsdir):
 remainingSims = 0
 
 def checkConfig(benchmarksList,bpredid,ls,gs,cs):
+    global remainingSims 
     currentdir = "/home/010/j/jx/jxp220032/CS6304P2"
     for bm in benchmarksList:
         statsdir = currentdir + "/simstats/"+getStatsFileName(bm,bpredid,ls,gs,cs)
