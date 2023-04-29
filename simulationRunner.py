@@ -18,7 +18,7 @@ gsize = 4096
 branchpredictor = 0 #0,1,2
 
 def simulateForParams(branchpredictor,lsize,gsize,csize):
-    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         futures = []
         for bm in benchmarks:
             benchmarkEXE = currentdir + "/Project1_SPEC/" + bm + "/src/benchmark"
