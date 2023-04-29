@@ -33,11 +33,12 @@ def checkAllStats():
     #biModal
     for gs in [1024,2048,4096]:
         for cs in [1024,2048,4096]:
-            checkConfig(benchmarksList,0,1024,gs,cs)
+            checkConfig(benchmarksList,1,1024,gs,cs)
     #tournament
     for gs in [1024,2048,4096]:
         for cs in [1024,2048,4096]:
             for ls in [1024,2048,4096]:
-                checkConfig(benchmarksList,0,ls,gs,cs)
+                checkConfig(benchmarksList,2,ls,gs,cs)
+    print("checking all stats completed\n")
     
 checkAllStats()
