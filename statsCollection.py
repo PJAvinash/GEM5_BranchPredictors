@@ -33,7 +33,7 @@ def checkConfig(benchmarksList,bpredid,ls,gs,cs):
             print(getStatsFileName(bm,bpredid,ls,gs,cs) + '\n')
 
 def checkAllStats():
-    benchmarksList  = ['456.hmmer','458.sjeng','470.lbm']
+    benchmarksList  = ['401.bzip2','429.mcf','456.hmmer','458.sjeng','470.lbm']
     #local predictor
     for ls in [1024,2048,4096]:
         checkConfig(benchmarksList,0,ls,1024,1024)
