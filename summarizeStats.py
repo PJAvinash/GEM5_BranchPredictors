@@ -25,7 +25,7 @@ def readStats(benchmarksList,bpredid,ls,gs,cs,dictList):
     currentdir = "/home/010/j/jx/jxp220032/CS6304P2"
     for bm in benchmarksList:
         statsdir = currentdir + "/simstats/"+getStatsFileName(bm,bpredid,ls,gs,cs)
-        statsdict = read_file_to_dict(statsdir)
+        statsdict = read_file_to_dict(statsdir+"/stats.txt")
         statsdict['LSize'] = ls
         statsdict['GSize'] = gs
         statsdict['CSize'] = cs
