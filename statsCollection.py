@@ -1,7 +1,7 @@
 import re
 def read_file_to_dict(filename):
     with open(filename, 'r') as file:
-        regex = r'^(\w+)\s+([\-\d\.]+)'
+        regex =  r'^([\w.]+)\s+([\-\d\.]+)' #r'^(\w+)\s+([\-\d\.]+)'
         data = {}
         for line in file:
             match = re.match(regex, line)
