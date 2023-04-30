@@ -46,6 +46,5 @@ def checkAllStats():
         for cs in [1024,2048,4096]:
             for ls in [1024,2048,4096]:
                 checkConfig(benchmarksList,2,ls,gs,cs)
-    print("checking all stats completed, remaining :" + str(remainingSims) + "\n")
-    
+    print("checking all stats completed, remaining :" + str(remainingSims) + "\n")  
 checkAllStats()
