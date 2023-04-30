@@ -9,7 +9,7 @@ def read_file_to_dict(filename):
                 key = match.group(1)
                 value = float(match.group(2))
                 data[key] = value
-    if bool(data):
+    if not bool(data):
         print('data is empty for :'+filename)
     return data
 
