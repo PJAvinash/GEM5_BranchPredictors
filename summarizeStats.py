@@ -1,5 +1,9 @@
 import openpyxl
 from statsCollection import  *
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("summaryfile", help="name of summary file")
+args = parser.parse_args()
 
 def write_to_excel(data, output_file):
     workbook = openpyxl.Workbook()
@@ -21,7 +25,6 @@ def write_to_excel(data, output_file):
     workbook.save(output_file)
 
 def readStats(benchmarksList,bpredid,ls,gs,cs,dictList):
-    global remainingSims 
     currentdir = "/home/010/j/jx/jxp220032/CS6304P2"
     for bm in benchmarksList:
         statsdir = currentdir + "/simstats/"+getStatsFileName(bm,bpredid,ls,gs,cs)
@@ -58,6 +61,6 @@ def summarizeAllStats():
             for ls in [1024,2048,4096]:
                 readStats(benchmarksList,2,ls,gs,cs,dictList)
 
-    write_to_excel(dictList,currentdir+"/summary.xlsx")
-    print("writing summary at :"+currentdir+"/summary.xlsx")
+    write_to_excel(dictList,currentdir+"/"+args.summaryfile+".xlsx")
+    print("writing summary at :"+currentdir+"/"+args.summaryfile+".xlsx")
 summarizeAllStats()
