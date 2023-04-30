@@ -15,15 +15,17 @@ def write_to_excel(data, output_file):
 
     # Write the data rows
     for row_data in data:
-        try:
-            row = [row_data[key] for key in header]
-        except KeyError:
-            row = ['N/A' for _ in header]
+        row = []
+        for key in header:
+            if key in row_data:
+                row.append(row_data[key])
+            else:
+                row.append('')
         worksheet.append(row)
 
     # Save the workbook
     workbook.save(output_file)
-
+    
 def readStats(benchmarksList,bpredid,ls,gs,cs,dictList):
     currentdir = "/home/010/j/jx/jxp220032/CS6304P2"
     for bm in benchmarksList:
