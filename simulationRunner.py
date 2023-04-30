@@ -59,7 +59,7 @@ def simulateForParams2(branchpredictor, lsize, gsize, csize, executor, futures_l
 #         for ls in [1024,2048,4096]:
 #             simulateForParams(2,ls,gs,cs)
 
-with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
     futures = []
     #local predictor
     for ls in [1024,2048,4096]:
