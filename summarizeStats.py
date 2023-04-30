@@ -18,7 +18,7 @@ def write_to_excel(data, output_file):
         try:
             row = [row_data[key] for key in header]
         except KeyError:
-            row = ['' for _ in header]
+            row = ['N/A' for _ in header]
         worksheet.append(row)
 
     # Save the workbook
