@@ -59,3 +59,5 @@ def summarizeAllStats():
                 readStats(benchmarksList,2,ls,gs,cs,dictList)
 
     write_to_excel(dictList,currentdir+"/summary.xlsx")
+    print("writing summary at :"+currentdir+"/summary.xlsx")
+summarizeAllStats()
