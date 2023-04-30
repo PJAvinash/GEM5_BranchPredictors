@@ -31,20 +31,50 @@ def simulateForParams(branchpredictor,lsize,gsize,csize):
         for future in futures:
             future.result()
 
+def simulateForParams2(branchpredictor, lsize, gsize, csize, executor, futures_list):
+    for bm in benchmarks:
+        benchmarkEXE = currentdir + "/Project1_SPEC/" + bm + "/src/benchmark"
+        simulationConfig = args.configfile
+        benchmarkARGS = benchmarks[bm]
+        outputstats = bm +"_"+str(branchpredictor)+"_"+str(lsize)+"_"+str(gsize)+"_"+str(csize)
+        statsdir = currentdir + "/simstats/"+outputstats
+        simulationCMD = 'time ' + gem5build + ' -d ' +statsdir+' '+simulationConfig+' --bpredictortype='+ str(branchpredictor) + ' --lsize=' +str(lsize)+' --gsize='+str(gsize)+' --csize='+str(csize)+ ' -c '+benchmarkEXE+' -o "'+benchmarkARGS+'" -I '+args.instructions+ ' '+cpuparams
+        if not isExecuted(statsdir):
+            future = executor.submit(subprocess.call, simulationCMD, shell=True)
+            futures_list.append(future)
+
+
 
 #local predictor
-for ls in [1024,2048,4096]:
-    simulateForParams(0,ls,1024,1024)
+# for ls in [1024,2048,4096]:
+#     simulateForParams(0,ls,1024,1024)
 
 #biModal
-for gs in [1024,2048,4096]:
-    for cs in [1024,2048,4096]:
-        simulateForParams(1,1024,gs,cs)
+# for gs in [1024,2048,4096]:
+#     for cs in [1024,2048,4096]:
+#         simulateForParams(1,1024,gs,cs)
 #tournament
-for gs in [1024,2048,4096]:
-    for cs in [1024,2048,4096]:
-        for ls in [1024,2048,4096]:
-            simulateForParams(2,ls,gs,cs)
+# for gs in [1024,2048,4096]:
+#     for cs in [1024,2048,4096]:
+#         for ls in [1024,2048,4096]:
+#             simulateForParams(2,ls,gs,cs)
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+    futures = []
+    #local predictor
+    for ls in [1024,2048,4096]:
+        simulateForParams2(0,ls,1024,1024,executor,futures)
+    #biModal
+    for gs in [1024,2048,4096]:
+        for cs in [1024,2048,4096]:
+            simulateForParams2(1,1024,gs,cs,executor,futures)
+    #tournament
+    for gs in [1024,2048,4096]:
+        for cs in [1024,2048,4096]:
+            for ls in [1024,2048,4096]:
+                simulateForParams2(2,ls,gs,cs,executor,futures)
+    concurrent.futures.wait(futures)
+
 
 
 
