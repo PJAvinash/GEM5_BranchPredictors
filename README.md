@@ -1,1 +1,2 @@
-# Branch predictor evaluation using GEM5 simulator 
+# Branch predictor evaluation using the GEM5 simulator 
+![Average Branch Target Buffer misses](AvgBTBMisses.jpg)
